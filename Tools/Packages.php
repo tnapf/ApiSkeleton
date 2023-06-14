@@ -1,19 +1,34 @@
-<?php ob_start(); ?>
-# Dependencies
-
 <?php
-$composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'));
+$composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'), true);
 
-foreach ($composer->require as $name => $version) { ?>
-* [<?= $name ?>: <?= $version ?>](<?= str_starts_with($name, 'php') ? 'https://www.php.net/downloads.php' : "https://packagist.org/packages/{$name}" ?>)
-<?php } ?>
+$formatPackages = function (array $packages): string {
+    if (empty($packages)) {
+        return "* No dependencies.\n";
+    }
+    $formattedPackages = [];
 
-# Dev Dependencies
+    foreach ($packages as $name => $version) {
+        if ($name === 'php') {
+            $downloadUri = "https://www.php.net/downloads.php";
+        } elseif (str_starts_with($name, 'ext-')) {
+            $name = str_replace('ext-', '', $name);
+            $downloadUri = "https://www.php.net/{$name}.setup";
+        } else {
+            $downloadUri = "https://packagist.org/packages/{$name}";
+        }
 
-<?php foreach ($composer->{'require-dev'} as $name => $version) { ?>
-* [<?= $name ?>: <?= $version ?>](<?= str_starts_with($name, 'php') ? 'https://www.php.net/downloads.php' : "https://packagist.org/packages/{$name}" ?>)
-<?php
-}
+        $formattedPackages[] = "* [{$name}: {$version}]({$downloadUri})";
+    }
 
-file_put_contents(__DIR__ . '/packages.md', ob_get_clean());
-?>
+    return implode("\n", $formattedPackages) . "\n";
+};
+
+$context = [
+        '# Dependencies',
+        $formatPackages($composer['require'] ?? []),
+        '# Dev Dependencies',
+        $formatPackages($composer['require-dev'] ?? [])
+];
+
+file_put_contents(__DIR__ . '/packages.md', implode("\n", $context));
+
