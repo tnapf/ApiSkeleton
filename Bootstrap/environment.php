@@ -3,5 +3,7 @@
 use Core\Env;
 use Tnapf\Router\Router;
 
-$env = Env::createFromFile(__ROOT__ . '/.env');
+$envFile = __ROOT__ . '/.env';
+
+$env = file_exists($envFile) ? Env::createFromFile($envFile) : new Env();
 $env->router = new Router();
