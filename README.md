@@ -43,16 +43,42 @@ There is a helper class named `ApiResponse` that can be used to create responses
 use Core\ApiResponse;ApiResponse;
 
 ApiResponse::success(200);
-// {"status": "success", "code": 200}
+/**
+ * {
+ *   "success": true
+ * }
+ */
 
 ApiResponse::successWithData(['foo' => 'bar']);
-// {"status": "success", "data": {"foo": "bar"}}
+/**
+ * {
+ *   "success": true,
+ *   "data": {
+ *     "foo": "bar"
+ *   }
+ * } 
+ */
 
 ApiResponse::error('life is pain', 500);
-// {"status": "error", "message": "life is pain", "code": 500}
+/**
+ * {
+ *   "success": false,
+ *   "message": "life is pain",
+ *   "code": 500
+ * } 
+ */
 
-ApiResponse::errorWithData('life is pain', ['foo' => 'bar']);
-// {"status": "error", "message": "life is pain", "data": {"foo": "bar"}}
+ApiResponse::errorWithData('life is pain', ['foo' => 'bar'], 500);
+/**
+ * {
+ *    "success": false,
+ *    "message": "life is pain",
+ *    "code": 500,
+ *    "data": {
+ *      "foo": "bar"
+ *    } 
+ * }
+ */
 ```
 
 # Unit Testing
