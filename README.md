@@ -93,10 +93,15 @@ Create a class that extends `Tests\ApiTestCase` inside `App\Tests`. This should 
 
 `composer tests` or `composer tests:coverage` to generate a coverage report.
 
-# Packages
+# Dependencies
 
 * [php: ^8.1](https://www.php.net/downloads.php)
 * [tnapf/env: ^v1.1.1](https://packagist.org/packages/tnapf/env)
 * [tnapf/router: ^v6.0.0](https://packagist.org/packages/tnapf/router)
 * [commandstring/utils: ^1.7](https://packagist.org/packages/commandstring/utils)
+
+# Dev Dependencies
+
+* [friendsofphp/php-cs-fixer: ^3.16](https://packagist.org/packages/friendsofphp/php-cs-fixer)
+* [phpunit/phpunit: ^10.1](https://www.php.net/downloads.php)
 * [xheaven/composer-git-hooks: ^3.0](https://packagist.org/packages/xheaven/composer-git-hooks)
