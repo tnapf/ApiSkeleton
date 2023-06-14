@@ -7,3 +7,4 @@ package-lock.json
 .idea/
 Tools/packages.md
 .php-cs-fixer.cache
+.phpunit.cache
