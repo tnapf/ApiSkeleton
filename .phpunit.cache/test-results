@@ -1,0 +1,1 @@
+{"version":1,"defects":{"tests\\ApiTest::testPing":5,"Tests\\PingTest::testPing":7},"times":{"tests\\ApiTest::testPing":0.009,"Tests\\PingTest::testPing":0.009}}
