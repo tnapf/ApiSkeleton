@@ -2,15 +2,21 @@
 
 use CommandString\Utils\FileSystemUtils;
 use Core\Env;
+use Core\Routing\Catcher;
+use Tnapf\Router\Interfaces\ControllerInterface;
 use Tnapf\Router\Routing\Route;
 use Core\Routing\Route as RouteAttribute;
 
 $router = Env::get()->router;
 $routeDirectory = API_ROOT . '/App/Controllers';
-$namespace = '\\App\\Controllers\\';
+$routeNamespace = '\\App\\Controllers\\';
+$catcherDirectory = API_ROOT . '/App/Catchers';
+$catcherNamespace = '\\App\\Catchers\\';
 
+// Register Routes
+$routes = [];
 foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], true) as $file) {
-    $className = $namespace . basename($file, '.php');
+    $className = $routeNamespace . basename($file, '.php');
     $controller = new $className();
     $reflection = new ReflectionClass($controller);
     $routeProperties = $reflection->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
@@ -26,12 +32,20 @@ foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], tr
         continue;
     }
 
-    $uri = API_PREFIX . $settings->uri;
+    $routes[] = compact('settings', 'controller');
+}
+
+foreach ($routes as $route) {
+    /** @var RouteAttribute $settings */
+    $settings = $route['settings'];
+
+    /** @var ControllerInterface $route */
+    $controller = $route['controller'];
 
     $route = new Route(
-        $uri,
+        $settings->uri,
         $controller,
-        '',
+        API_PREFIX,
         ...$settings->methods,
     );
 
@@ -45,4 +59,40 @@ foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], tr
     $route->addMiddleware(...$settings->middlewares);
 
     $router->addRoute($route);
+}
+
+// Register Catchers
+$catchers = [];
+foreach (FileSystemUtils::getAllFilesWithExtensions($catcherDirectory, ['php']) as $file) {
+    $className = $catcherNamespace . basename($file, '.php');
+    $catcher = new $className();
+    $reflection = new ReflectionClass($catcher);
+    $catcherProperties = $reflection->getAttributes(Catcher::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+
+    if ($catcherProperties === null) {
+        continue;
+    }
+
+    /** @var Catcher $settings */
+    $settings = $catcherProperties->newInstance();
+
+    if ($settings->disabled) {
+        continue;
+    }
+
+    $uri = API_PREFIX . $settings->uri;
+
+    $catchers[] = compact('settings', 'catcher');
+}
+
+usort($catchers, static fn ($a, $b) => $a['settings']->priority <=> $b['settings']->priority);
+
+foreach ($catchers as $catcher) {
+    /** @var Catcher $settings */
+    $settings = $catcher['settings'];
+
+    /** @var ControllerInterface $catcher */
+    $catcher = $catcher['catcher'];
+
+    $router->catch($settings->toCatch, $catcher, $settings->uri);
 }
