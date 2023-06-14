@@ -16,8 +16,19 @@ class ApiResponse
     public static function error(string $message, int $code = 500): JsonResponse
     {
         return self::create([
+            'success' => false,
             'error' => $message,
             'code' => $code,
+        ], $code);
+    }
+
+    public static function errorWithData(string $message, array|stdClass|JsonSerializable $data, int $code = 500): JsonResponse
+    {
+        return self::create([
+            'success' => false,
+            'error' => $message,
+            'code' => $code,
+            'data' => $data,
         ], $code);
     }
 
