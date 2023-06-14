@@ -1,5 +1,5 @@
 <?php
 
-require_once __ROOT__ . '/vendor/autoload.php';
-require_once __ROOT__ . '/Bootstrap/environment.php';
-require_once __ROOT__ . '/Bootstrap/router.php';
+require_once ROOT . '/vendor/autoload.php';
+require_once ROOT . '/Bootstrap/environment.php';
+require_once ROOT . '/Bootstrap/router.php';

@@ -6,7 +6,7 @@ use Tnapf\Router\Routing\Route;
 use Core\Routing\Route as RouteAttribute;
 
 $router = Env::get()->router;
-$routeDirectory = __ROOT__ . '/App/Controllers';
+$routeDirectory = ROOT . '/App/Controllers';
 $uriPrefix = '/api';
 $namespace = '\\App\\Controllers\\';
 

@@ -2,8 +2,8 @@
 
 use Core\Env;
 
-const __ROOT__ = __DIR__ . '/..';
+const ROOT = __DIR__ . '/..';
 
-require_once __ROOT__ . '/Bootstrap/requires.php';
+require_once ROOT . '/Bootstrap/requires.php';
 
 Env::get()->router->emit();
