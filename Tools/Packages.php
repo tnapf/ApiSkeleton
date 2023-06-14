@@ -2,18 +2,18 @@
 # Dependencies
 
 <?php
-$composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'));;
+$composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'));
 
-foreach ($composer->require as $name => $version): ?>
+foreach ($composer->require as $name => $version) { ?>
 * [<?= $name ?>: <?= $version ?>](<?= str_starts_with($name, 'php') ? 'https://www.php.net/downloads.php' : "https://packagist.org/packages/{$name}" ?>)
-<?php endforeach; ?>
+<?php } ?>
 
 # Dev Dependencies
 
-<?php foreach ($composer->{'require-dev'} as $name => $version): ?>
+<?php foreach ($composer->{'require-dev'} as $name => $version) { ?>
 * [<?= $name ?>: <?= $version ?>](<?= str_starts_with($name, 'php') ? 'https://www.php.net/downloads.php' : "https://packagist.org/packages/{$name}" ?>)
 <?php
-endforeach;
+}
 
 file_put_contents(__DIR__ . '/packages.md', ob_get_clean());
 ?>
