@@ -8,7 +8,9 @@ Just create a new file inside `Bootstrap` and then require it in `Bootstrap/requ
 
 ## Creating an endpoint
 
-First create a class that extends `Tnapf\Router\Interfaces\ControllerInterface` inside `App\Controllers` and add the `#[Route]` attribute to the class.
+First create a class that extends `Tnapf\Router\Interfaces\ControllerInterface` inside `App\Controllers` and add the `#[Route]` attribute to the class. 
+
+By default, each URI is prefixed with `/api` so the route below can be access by `/api/ping`. You can change this by setting the `API_PREFIX` constant in `Bootstrap/environment.php`.
 
 ```php
 <?php
