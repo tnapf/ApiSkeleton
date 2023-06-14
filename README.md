@@ -11,7 +11,7 @@ Just create a new file inside `Bootstrap` and then require it in `Bootstrap/requ
 
 ## Creating an endpoint
 
-First create a class that extends `Tnapf\Router\Interfaces\ControllerInterface` inside `App\Controllers` and add the `#[Route]` attribute to the class. 
+First create a class that extends `Tnapf\Router\Interfaces\ControllerInterface` inside `App\Controllers` and add the `#[Route]` attribute to the class.
 
 By default, each URI is prefixed with `/api` so the route below can be access by `/api/ping`. You can change this by setting the `API_PREFIX` constant in `Bootstrap/environment.php`.
 
@@ -39,6 +39,38 @@ class Ping implements ControllerInterface
     }
 }
 ```
+Note: You can set the priority of the route to determine the order in which routes are loaded. The default priority is 0.
+
+## Catching exceptions
+
+First create a class that extends `Tnapf\Router\Interfaces\ControllerInterface` inside `App\Catchers` and add the `#[Catcher]` attribute to the class.
+
+```php
+<?php
+
+namespace App\Catchers;
+
+use Core\ApiResponse;
+use Core\Routing\Catcher;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Tnapf\Router\Exceptions\HttpNotFound;
+use Tnapf\Router\Interfaces\ControllerInterface;
+use Tnapf\Router\Routing\RouteRunner;
+
+#[Catcher(HttpNotFound::class)]
+class E404 implements ControllerInterface
+{
+    public function handle(
+        ServerRequestInterface $request,
+        ResponseInterface $response,
+        RouteRunner $route
+    ): ResponseInterface {
+        return ApiResponse::error('Endpoint Not Found', 404);
+    }
+}
+```
+Note: You can set the priority of the catcher to determine the order in which catchers are loaded. The default priority is 0.
 
 ## Creating responses
 
