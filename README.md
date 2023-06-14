@@ -68,6 +68,7 @@ Create a class that extends `Tests\ApiTestCase` inside `App\Tests`. This should 
 # Packages
 
 * [php: ^8.1](https://www.php.net/downloads.php)
-* [tnapf/env: v1.1.1](https://packagist.org/packages/tnapf/env)
-* [tnapf/router: v6.0.0](https://packagist.org/packages/tnapf/router)
+* [tnapf/env: ^v1.1.1](https://packagist.org/packages/tnapf/env)
+* [tnapf/router: ^v6.0.0](https://packagist.org/packages/tnapf/router)
 * [commandstring/utils: ^1.7](https://packagist.org/packages/commandstring/utils)
+* [xheaven/composer-git-hooks: ^3.0](https://packagist.org/packages/xheaven/composer-git-hooks)
