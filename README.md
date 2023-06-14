@@ -1,6 +1,6 @@
 # Tnapf/ApiSkeleton
 
-# Bootstraping
+# Bootstrapping
 
 Just create a new file inside `Bootstrap` and then require it in `Bootstrap/requires.php`
 
