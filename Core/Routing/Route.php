@@ -14,7 +14,8 @@ class Route
         public readonly array $middlewares = [],
         public readonly array $postwares = [],
         public readonly array $parameters = [],
-        public readonly bool $disabled = false
+        public readonly bool $disabled = false,
+        public readonly int $priority = 0
     ) {
     }
 }
