@@ -1,4 +1,5 @@
 <?php
+
 $composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'), true);
 
 $formatPackages = function (array $packages): string {
@@ -9,7 +10,7 @@ $formatPackages = function (array $packages): string {
 
     foreach ($packages as $name => $version) {
         if ($name === 'php') {
-            $downloadUri = "https://www.php.net/downloads.php";
+            $downloadUri = 'https://www.php.net/downloads.php';
         } elseif (str_starts_with($name, 'ext-')) {
             $name = str_replace('ext-', '', $name);
             $downloadUri = "https://www.php.net/{$name}.setup";
@@ -24,11 +25,10 @@ $formatPackages = function (array $packages): string {
 };
 
 $context = [
-        '# Dependencies',
-        $formatPackages($composer['require'] ?? []),
-        '# Dev Dependencies',
-        $formatPackages($composer['require-dev'] ?? [])
+    '# Dependencies',
+    $formatPackages($composer['require'] ?? []),
+    '# Dev Dependencies',
+    $formatPackages($composer['require-dev'] ?? []),
 ];
 
 file_put_contents(__DIR__ . '/packages.md', implode("\n", $context));
-
