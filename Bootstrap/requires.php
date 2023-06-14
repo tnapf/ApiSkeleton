@@ -1,5 +1,5 @@
 <?php
 
-require_once ROOT . '/vendor/autoload.php';
-require_once ROOT . '/Bootstrap/environment.php';
-require_once ROOT . '/Bootstrap/router.php';
+require_once API_ROOT . '/vendor/autoload.php';
+require_once API_ROOT . '/Bootstrap/environment.php';
+require_once API_ROOT . '/Bootstrap/router.php';

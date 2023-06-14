@@ -6,8 +6,7 @@ use Tnapf\Router\Routing\Route;
 use Core\Routing\Route as RouteAttribute;
 
 $router = Env::get()->router;
-$routeDirectory = ROOT . '/App/Controllers';
-$uriPrefix = '/api';
+$routeDirectory = API_ROOT . '/App/Controllers';
 $namespace = '\\App\\Controllers\\';
 
 foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], true) as $file) {
@@ -27,7 +26,7 @@ foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], tr
         continue;
     }
 
-    $uri = "{$uriPrefix}{$settings->uri}";
+    $uri = API_PREFIX . $settings->uri;
 
     $route = new Route(
         $uri,
