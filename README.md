@@ -1,5 +1,9 @@
 # Tnapf/ApiSkeleton
 
+# Bootstraping
+
+Just create a new file inside `Bootstrap` and then require it in `Bootstrap/requires.php`
+
 # Routing
 
 ## Creating an endpoint
