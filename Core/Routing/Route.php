@@ -6,15 +6,15 @@ use Attribute;
 use Tnapf\Router\Routing\Methods;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-readonly class Route
+class Route
 {
     public function __construct(
-        public string $uri,
-        public array $methods = [Methods::GET],
-        public array $middlewares = [],
-        public array $postwares = [],
-        public array $parameters = [],
-        public bool $disabled = false
+        public readonly string $uri,
+        public readonly array $methods = [Methods::GET],
+        public readonly array $middlewares = [],
+        public readonly array $postwares = [],
+        public readonly array $parameters = [],
+        public readonly bool $disabled = false
     ) {
     }
 }
