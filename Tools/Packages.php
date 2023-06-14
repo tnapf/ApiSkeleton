@@ -4,8 +4,7 @@
 <?php
 $composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'));;
 
-?>
-<?php foreach ($composer->require as $name => $version): ?>
+foreach ($composer->require as $name => $version): ?>
 * [<?= $name ?>: <?= $version ?>](<?= str_starts_with($name, 'php') ? 'https://www.php.net/downloads.php' : "https://packagist.org/packages/{$name}" ?>)
 <?php endforeach; ?>
 
