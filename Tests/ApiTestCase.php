@@ -13,8 +13,8 @@ class ApiTestCase extends TestCase
     public function __construct(string $name)
     {
         parent::__construct($name);
-        define('__ROOT__', __DIR__ . '/..');
-        require_once __ROOT__ . '/Bootstrap/requires.php';
+        define('ROOT', __DIR__ . '/..');
+        require_once ROOT . '/Bootstrap/requires.php';
     }
 
     public function runRequest(ServerRequestInterface $request): ResponseInterface
