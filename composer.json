@@ -11,8 +11,8 @@
   ],
   "require": {
     "php": "^8.1",
-    "tnapf/env": "v1.1.1",
-    "tnapf/router": "v6.0.0",
+    "tnapf/env": "^v1.1.1",
+    "tnapf/router": "^v6.0.0",
     "commandstring/utils": "^1.7"
   },
   "autoload": {
