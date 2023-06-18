@@ -20,13 +20,14 @@ foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], tr
     $path = dirname($file);
     $namespace = $convertPathToNamespace($path);
     $className = $namespace . '\\' . $className;
-    $controller = new $className();
-    $reflection = new ReflectionClass($controller);
+    $reflection = new ReflectionClass($className);
     $routeProperties = $reflection->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
 
     if ($routeProperties === null) {
         continue;
     }
+
+    $controller = new $className();
 
     /** @var RouteAttribute $settings */
     $settings = $routeProperties->newInstance();
@@ -71,13 +72,14 @@ foreach (FileSystemUtils::getAllFilesWithExtensions($catcherDirectory, ['php']) 
     $path = dirname($file);
     $namespace = $convertPathToNamespace($path);
     $className = $namespace . '\\' . $className;
-    $catcher = new $className();
     $reflection = new ReflectionClass($catcher);
     $catcherProperties = $reflection->getAttributes(Catcher::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
 
     if ($catcherProperties === null) {
         continue;
     }
+    
+    $catcher = new $className();
 
     /** @var Catcher $settings */
     $settings = $catcherProperties->newInstance();
