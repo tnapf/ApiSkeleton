@@ -9,14 +9,17 @@ use Core\Routing\Route as RouteAttribute;
 
 $router = Env::get()->router;
 $routeDirectory = API_ROOT . '/App/Controllers';
-$routeNamespace = '\\App\\Controllers\\';
 $catcherDirectory = API_ROOT . '/App/Catchers';
-$catcherNamespace = '\\App\\Catchers\\';
+
+$convertPathToNamespace = static fn (string $path): string => str_replace([realpath(API_ROOT), '/'], ['', '\\'], $path);
 
 // Register Routes
 $routes = [];
 foreach (FileSystemUtils::getAllFilesWithExtensions($routeDirectory, ['php'], true) as $file) {
-    $className = $routeNamespace . basename($file, '.php');
+    $className = basename($file, '.php');
+    $path = dirname($file);
+    $namespace = $convertPathToNamespace($path);
+    $className = $namespace . '\\' . $className;
     $controller = new $className();
     $reflection = new ReflectionClass($controller);
     $routeProperties = $reflection->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
@@ -64,7 +67,10 @@ foreach ($routes as $route) {
 // Register Catchers
 $catchers = [];
 foreach (FileSystemUtils::getAllFilesWithExtensions($catcherDirectory, ['php']) as $file) {
-    $className = $catcherNamespace . basename($file, '.php');
+    $className = basename($file, '.php');
+    $path = dirname($file);
+    $namespace = $convertPathToNamespace($path);
+    $className = $namespace . '\\' . $className;
     $catcher = new $className();
     $reflection = new ReflectionClass($catcher);
     $catcherProperties = $reflection->getAttributes(Catcher::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
