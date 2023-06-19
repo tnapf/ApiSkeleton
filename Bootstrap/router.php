@@ -72,13 +72,13 @@ foreach (FileSystemUtils::getAllFilesWithExtensions($catcherDirectory, ['php']) 
     $path = dirname($file);
     $namespace = $convertPathToNamespace($path);
     $className = $namespace . '\\' . $className;
-    $reflection = new ReflectionClass($catcher);
+    $reflection = new ReflectionClass($className);
     $catcherProperties = $reflection->getAttributes(Catcher::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
 
     if ($catcherProperties === null) {
         continue;
     }
-    
+
     $catcher = new $className();
 
     /** @var Catcher $settings */
