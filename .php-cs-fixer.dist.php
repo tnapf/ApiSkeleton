@@ -19,7 +19,7 @@ return $config->setRiskyAllowed(true)
         // A single space or none should be between cast and variable.
         'cast_spaces' => false,
         // Class, trait and interface elements must be separated with one or none blank line.
-        'class_attributes_separation' => ['elements' => ['const' => 'one', 'method' => 'one', 'property' => 'one', 'trait_import' => 'none']],
+        'class_attributes_separation' => ['elements' => ['const' => 'one', 'method' => 'one', 'property' => 'none', 'trait_import' => 'none']],
         // Whitespace around the keywords of a class, trait, enum or interfaces definition should be one space.
         'class_definition' => ['multi_line_extends_each_single_line' => true, 'single_item_single_line' => true, 'single_line' => true],
         // Namespace must not contain spacing, comments or PHPDoc.
@@ -208,8 +208,6 @@ return $config->setRiskyAllowed(true)
         'short_scalar_cast' => true,
         // A PHP file without end tag must always end with a single empty line feed.
         'single_blank_line_at_eof' => true,
-        // There should be exactly one blank line before a namespace declaration.
-        'single_blank_line_before_namespace' => true,
         // There MUST NOT be more than one property or constant declared per statement.
         'single_class_element_per_statement' => ['elements' => ['const', 'property']],
         // There MUST be one use keyword per declaration.
